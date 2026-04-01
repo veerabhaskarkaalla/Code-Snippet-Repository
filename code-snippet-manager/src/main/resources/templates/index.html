@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<div th:replace="fragments/chatbot :: chatbot-css"></div>
+	</head>
+<body>
+    <!-- Header -->
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/}" class="gh-nav-link">Home</a>
+                    <a th:href="@{/login}" class="gh-nav-link">Sign in</a>
+                    <a th:href="@{/register}" class="gh-btn">Sign up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gh-container" style="padding: 80px 0; text-align: center;">
+        <h1 style="font-size: 48px; font-weight: 600; margin-bottom: 16px;">
+            Organize your code snippets
+        </h1>
+        <p style="font-size: 20px; color: var(--gh-text-secondary); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            A simple, powerful way to store, manage, and share your code snippets across all your projects.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a th:href="@{/register}" class="gh-btn" style="padding: 12px 24px;">
+                Get started
+            </a>
+            <a th:href="@{/login}" class="gh-btn gh-btn-outline" style="padding: 12px 24px;">
+                Sign in
+            </a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="gh-container" style="padding: 80px 0;">
+        <div class="gh-snippet-grid">
+            <div class="gh-card">
+                <h3>📁 Organized storage</h3>
+                <p style="color: var(--gh-text-secondary);">Keep your code snippets organized by language, project, or custom categories.</p>
+            </div>
+            
+            <div class="gh-card">
+                <h3>🔍 Easy search</h3>
+                <p style="color: var(--gh-text-secondary);">Quickly find the code you need with powerful search and filtering options.</p>
+            </div>
+            
+            <div class="gh-card">
+                <h3>💾 Multiple formats</h3>
+                <p style="color: var(--gh-text-secondary);">Support for all major programming languages and file formats.</p>
+            </div>
+            
+            <div class="gh-card">
+                <h3>👥 Share easily</h3>
+                <p style="color: var(--gh-text-secondary);">Share snippets with your team or make them public for the community.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="gh-container" style="padding: 80px 0;">
+        <h2 class="text-center mb-4">Clean code display</h2>
+        <div class="gh-code">
+            <div class="gh-code-header">
+                <span>ExampleController.java</span>
+                <button class="gh-btn-outline" style="padding: 4px 8px; font-size: 12px;">
+                    Copy
+                </button>
+            </div>
+            <div class="gh-code-body">
+                <pre style="margin: 0;"><code>@RestController
+public class ExampleController {
+    
+    @GetMapping("/api/data")
+    public ResponseEntity<List<String>> getData() {
+        // Store useful code snippets
+        List<String> data = Arrays.asList("item1", "item2");
+        return ResponseEntity.ok(data);
+    }
+    
+    private void helperMethod() {
+        // Keep your utility methods organized
+        System.out.println("Code Snippet Repository");
+    }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Snippets - Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+</head>
+<body>
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/dashboard}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/dashboard}" class="gh-nav-link">Dashboard</a>
+                    <a th:href="@{/snippets}" class="gh-nav-link">Snippets</a>
+                    <a th:href="@{/snippets/create}" class="gh-nav-link">New</a>
+                    <a th:href="@{/logout}" class="gh-nav-link">Sign out</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="gh-container" style="padding: 40px 0;">
+        <!-- Page Header -->
+        <div class="gh-card">
+            <div class="gh-card-header">
+                <h1 style="margin: 0;">My Snippets</h1>
+                <a th:href="@{/snippets/create}" class="gh-btn">New snippet</a>
+            </div>
+            
+            <!-- Search -->
+            <form th:action="@{/snippets/search}" method="get" style="margin-bottom: 0;">
+                <input type="text" name="keyword" class="gh-form-input" placeholder="Search snippets...">
+            </form>
+        </div>
+
+        <!-- Snippets List -->
+        <div th:if="${snippets != null and snippets.empty}">
+            <div class="gh-card text-center">
+                <h3>No snippets found</h3>
+                <p style="color: var(--gh-text-secondary);">Create your first code snippet to get started.</p>
+                <a th:href="@{/snippets/create}" class="gh-btn">Create first snippet</a>
+            </div>
+        </div>
+
+        <div th:unless="${snippets == null or snippets.empty}" class="gh-snippet-grid">
+            <div th:each="snippet : ${snippets}" class="gh-snippet-card">
+                <div class="gh-snippet-header">
+                    <h4 style="margin: 0; font-size: 16px;" th:text="${snippet.title}"></h4>
+                    <span class="gh-lang-badge" th:classappend="'lang-' + ${snippet.language.toLowerCase()}" 
+                          th:text="${snippet.language}"></span>
+                </div>
+                <div class="gh-snippet-body">
+                    <p style="margin: 0; font-size: 14px; color: var(--gh-text-secondary); margin-bottom: 12px;" 
+                       th:text="${snippet.description} ?: 'No description'"></p>
+                    <div class="gh-code">
+                        <pre style="margin: 0; font-size: 11px;"><code th:text="${snippet.code}"></code></pre>
+                    </div>
+                </div>
+                <div class="gh-snippet-footer">
+                    <small style="color: var(--gh-text-secondary);" 
+                           th:text="${#temporals.format(snippet.createdAt, 'MMM dd, yyyy')}"></small>
+                    <div style="display: flex; gap: 8px;">
+                        <a th:href="@{/snippets/edit/{id}(id=${snippet.id})}" class="gh-btn-outline" style="padding: 4px 8px; font-size: 12px;">
+                            Edit
+                        </a>
+                        <a th:href="@{/snippets/delete/{id}(id=${snippet.id})}" class="gh-btn-outline" style="padding: 4px 8px; font-size: 12px; color: var(--gh-danger); border-color: var(--gh-danger);"
+                           onclick="return confirm('Delete this snippet?')">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign up - Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<div th:replace="fragments/chatbot :: chatbot-css"></div>
+	</head>
+<body>
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/}" class="gh-nav-link">Home</a>
+                    <a th:href="@{/login}" class="gh-nav-link">Sign in</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="gh-auth-container">
+        <div class="gh-auth-card">
+            <div class="gh-auth-header">
+                <h1 class="gh-auth-title">Create your account</h1>
+                <p class="gh-auth-subtitle">Join thousands of developers</p>
+            </div>
+
+            <!-- Error Messages -->
+            <div th:if="${param.error}" class="gh-card" style="background-color: rgba(248, 81, 73, 0.1); border-color: var(--gh-danger); margin-bottom: 16px;">
+                <p style="color: var(--gh-danger); margin: 0; font-size: 14px;">
+                    <span th:if="${param.error == 'username_exists'}">Username already exists</span>
+                    <span th:if="${param.error == 'email_exists'}">Email already exists</span>
+                    <span th:if="${param.error == 'unknown'}">Registration failed. Please try again.</span>
+                </p>
+            </div>
+
+            <form th:action="@{/register}" method="post">
+                <div class="gh-form-group">
+                    <label for="fullName" class="gh-form-label">Full name</label>
+                    <input type="text" id="fullName" name="fullName" class="gh-form-input" required>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="username" class="gh-form-label">Username</label>
+                    <input type="text" id="username" name="username" class="gh-form-input" required>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="email" class="gh-form-label">Email address</label>
+                    <input type="email" id="email" name="email" class="gh-form-input" required>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="password" class="gh-form-label">Password</label>
+                    <input type="password" id="password" name="password" class="gh-form-input" required>
+                </div>
+
+                <button type="submit" class="gh-btn w-100" style="justify-content: center; margin-bottom: 16px;">
+                    Create account
+                </button>
+            </form>
+
+            <div class="gh-card" style="text-align: center; padding: 16px; background-color: rgba(177, 186, 196, 0.08);">
+                <p style="margin: 0; font-size: 14px; color: var(--gh-text-secondary);">
+                    Already have an account? 
+                    <a th:href="@{/login}" style="color: var(--gh-primary); text-decoration: none;">Sign in</a>.
+                </p>
+            </div>
+        </div>
+    </main>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>

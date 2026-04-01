@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Snippet - Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<div th:replace="fragments/chatbot :: chatbot-css"></div>
+	</head>
+<body>
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/dashboard}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/dashboard}" class="gh-nav-link">Dashboard</a>
+                    <a th:href="@{/snippets}" class="gh-nav-link">Snippets</a>
+                    <a th:href="@{/snippets/create}" class="gh-nav-link">New</a>
+                    <a th:href="@{/logout}" class="gh-nav-link">Sign out</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="gh-container" style="padding: 40px 0; max-width: 800px;">
+        <div class="gh-card">
+            <div class="gh-card-header">
+                <h1 style="margin: 0; font-size: 24px;">Create new code snippet</h1>
+                <a th:href="@{/snippets}" class="gh-btn-outline">← Back to snippets</a>
+            </div>
+
+            <form th:action="@{/snippets/create}" method="post" style="margin-top: 24px;">
+                <div class="gh-form-group">
+                    <label for="title" class="gh-form-label">Snippet Title</label>
+                    <input type="text" id="title" name="title" class="gh-form-input" 
+                           placeholder="What does this code do?" required
+                           th:value="${snippet?.title}">
+                    <small style="color: var(--gh-text-secondary); font-size: 12px; display: block; margin-top: 4px;">
+                        Give your snippet a descriptive title
+                    </small>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="description" class="gh-form-label">Description</label>
+                    <textarea id="description" name="description" class="gh-form-input" 
+                              placeholder="Describe what this code does and when to use it..."
+                              rows="3" th:text="${snippet?.description}"></textarea>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="language" class="gh-form-label">Programming Language</label>
+                    <select id="language" name="language" class="gh-form-input" required>
+                        <option value="">Select a programming language</option>
+                        <option value="Java" th:selected="${snippet?.language == 'Java'}">Java</option>
+                        <option value="Python" th:selected="${snippet?.language == 'Python'}">Python</option>
+                        <option value="JavaScript" th:selected="${snippet?.language == 'JavaScript'}">JavaScript</option>
+                        <option value="HTML" th:selected="${snippet?.language == 'HTML'}">HTML</option>
+                        <option value="CSS" th:selected="${snippet?.language == 'CSS'}">CSS</option>
+                        <option value="SQL" th:selected="${snippet?.language == 'SQL'}">SQL</option>
+                        <option value="TypeScript" th:selected="${snippet?.language == 'TypeScript'}">TypeScript</option>
+                        <option value="C++" th:selected="${snippet?.language == 'C++'}">C++</option>
+                        <option value="Other" th:selected="${snippet?.language == 'Other'}">Other</option>
+                    </select>
+                </div>
+
+                <div class="gh-form-group">
+                    <label for="code" class="gh-form-label">Code</label>
+                    <textarea id="code" name="code" class="gh-form-input" 
+                              placeholder="Paste your code here..."
+                              rows="15" required
+                              style="font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace; font-size: 13px; line-height: 1.45;"
+                              th:text="${snippet?.code}"></textarea>
+                    <small style="color: var(--gh-text-secondary); font-size: 12px; display: block; margin-top: 4px;">
+                        Supports syntax highlighting for all major languages
+                    </small>
+                </div>
+
+                <div style="display: flex; gap: 12px; padding-top: 16px; border-top: 1px solid var(--gh-border);">
+                    <button type="submit" class="gh-btn" style="width: auto; padding: 10px 24px;">
+                        Create snippet
+                    </button>
+                    <a th:href="@{/snippets}" class="gh-btn-outline" style="width: auto; padding: 10px 24px;">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+			<!-- Add this section after the form -->
+			<div class="gh-card mt-4">
+			    <h3>AI Code Assistant</h3>
+			    <p style="color: var(--gh-text-secondary); margin-bottom: 16px;">
+			        Need help formatting or optimizing your code? Use the AI assistant in the bottom-right corner!
+			    </p>
+			    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+			        <button onclick="formatWithAI()" class="gh-btn-outline">Format Code with AI</button>
+			        <button onclick="optimizeWithAI()" class="gh-btn-outline">Optimize with AI</button>
+			        <button onclick="explainWithAI()" class="gh-btn-outline">Explain Code</button>
+			    </div>
+			</div>
+
+			<script>
+			function formatWithAI() {
+			    const code = document.getElementById('code').value;
+			    if (code.trim()) {
+			        alert('Open the AI chatbot (🤖 icon) and ask: "Please format this code: ' + code.substring(0, 100) + '..."');
+			    } else {
+			        alert('Please enter some code first.');
+			    }
+			}
+
+			function optimizeWithAI() {
+			    const code = document.getElementById('code').value;
+			    if (code.trim()) {
+			        alert('Open the AI chatbot and ask for optimization suggestions!');
+			    } else {
+			        alert('Please enter some code first.');
+			    }
+			}
+
+			function explainWithAI() {
+			    const code = document.getElementById('code').value;
+			    if (code.trim()) {
+			        alert('The AI assistant can explain your code. Open the chatbot!');
+			    } else {
+			        alert('Please enter some code first.');
+			    }
+			}
+			</script>
+        </div>
+    </main>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>

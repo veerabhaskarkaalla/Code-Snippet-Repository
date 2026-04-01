@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign in - Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<div th:replace="fragments/chatbot :: chatbot-css"></div>
+	</head>
+<body>
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/}" class="gh-nav-link">Home</a>
+                    <a th:href="@{/register}" class="gh-nav-link">Sign up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="gh-auth-container">
+        <div class="gh-auth-card">
+            <div class="gh-auth-header">
+                <h1 class="gh-auth-title">Sign in to Code Snippet Repository</h1>
+                <p class="gh-auth-subtitle">Manage your code snippets efficiently</p>
+            </div>
+
+            <!-- Error Messages -->
+            <div th:if="${error}" class="gh-card" style="background-color: rgba(248, 81, 73, 0.1); border-color: var(--gh-danger); margin-bottom: 16px;">
+                <p style="color: var(--gh-danger); margin: 0; font-size: 14px;" th:text="${error}"></p>
+            </div>
+
+            <div th:if="${message}" class="gh-card" style="background-color: rgba(63, 185, 80, 0.1); border-color: var(--gh-success); margin-bottom: 16px;">
+                <p style="color: var(--gh-success); margin: 0; font-size: 14px;" th:text="${message}"></p>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="gh-form-group">
+                    <label for="username" class="gh-form-label">Username or email address</label>
+                    <input type="text" id="username" name="username" class="gh-form-input" required>
+                </div>
+
+                <div class="gh-form-group">
+                    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 8px;">
+                        <label for="password" class="gh-form-label">Password</label>
+                    </div>
+                    <input type="password" id="password" name="password" class="gh-form-input" required>
+                </div>
+
+                <button type="submit" class="gh-btn w-100" style="justify-content: center; margin-bottom: 16px;">
+                    Sign in
+                </button>
+            </form>
+
+            <div class="gh-card" style="text-align: center; padding: 16px; background-color: rgba(177, 186, 196, 0.08);">
+                <p style="margin: 0; font-size: 14px; color: var(--gh-text-secondary);">
+                    New to Code Snippet Repository? 
+                    <a th:href="@{/register}" style="color: var(--gh-primary); text-decoration: none;">Create an account</a>.
+                </p>
+            </div>
+        </div>
+    </main>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>

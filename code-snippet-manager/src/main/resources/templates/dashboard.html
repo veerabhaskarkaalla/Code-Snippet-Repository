@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - Code Snippet Repository</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<div th:replace="fragments/chatbot :: chatbot-css"></div>
+	</head>
+<body>
+    <header class="gh-header">
+        <div class="gh-container">
+            <nav class="gh-nav">
+                <a th:href="@{/dashboard}" class="gh-logo">Code Snippet Repository</a>
+                <div class="gh-nav-links">
+                    <a th:href="@{/dashboard}" class="gh-nav-link">Dashboard</a>
+                    <a th:href="@{/snippets}" class="gh-nav-link">Snippets</a>
+                    <a th:href="@{/snippets/create}" class="gh-nav-link">New</a>
+                    <a th:href="@{/logout}" class="gh-nav-link">Sign out</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="gh-container" style="padding: 40px 0;">
+        <!-- Welcome -->
+        <div class="gh-card">
+            <h1>Dashboard</h1>
+            <p style="color: var(--gh-text-secondary); margin-bottom: 0;">Welcome to your code snippet repository</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="gh-stats">
+            <div class="gh-stat-card">
+                <div class="gh-stat-number" th:text="${totalSnippets}">0</div>
+                <div class="gh-stat-label">Total snippets</div>
+            </div>
+            <div class="gh-stat-card">
+                <div class="gh-stat-number" th:text="${javaCount}">0</div>
+                <div class="gh-stat-label">Java snippets</div>
+            </div>
+            <div class="gh-stat-card">
+                <div class="gh-stat-number" th:text="${pythonCount}">0</div>
+                <div class="gh-stat-label">Python snippets</div>
+            </div>
+            <div class="gh-stat-card">
+                <div class="gh-stat-number" th:text="${jsCount}">0</div>
+                <div class="gh-stat-label">JavaScript snippets</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="gh-card">
+            <div class="gh-card-header">
+                <h3 style="margin: 0;">Quick actions</h3>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a th:href="@{/snippets/create}" class="gh-btn">
+                    New snippet
+                </a>
+                <a th:href="@{/snippets}" class="gh-btn gh-btn-outline">
+                    View all snippets
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Snippets -->
+        <div class="gh-card">
+            <div class="gh-card-header">
+                <h3 style="margin: 0;">Recent snippets</h3>
+                <a th:href="@{/snippets}" class="gh-nav-link">View all</a>
+            </div>
+            
+            <div th:if="${recentSnippets != null and recentSnippets.empty}">
+                <div style="text-align: center; padding: 40px; color: var(--gh-text-secondary);">
+                    <p>No snippets yet.</p>
+                    <a th:href="@{/snippets/create}" class="gh-btn" style="margin-top: 16px;">
+                        Create your first snippet
+                    </a>
+                </div>
+            </div>
+            
+            <div th:unless="${recentSnippets == null or recentSnippets.empty}">
+                <div class="gh-snippet-grid">
+                    <div th:each="snippet : ${recentSnippets}" class="gh-snippet-card">
+                        <div class="gh-snippet-header">
+                            <h4 style="margin: 0; font-size: 16px;" th:text="${snippet.title}"></h4>
+                            <span class="gh-lang-badge" th:classappend="'lang-' + ${snippet.language.toLowerCase()}" 
+                                  th:text="${snippet.language}"></span>
+                        </div>
+                        <div class="gh-snippet-body">
+                            <p style="margin: 0; font-size: 14px; color: var(--gh-text-secondary);" 
+                               th:text="${snippet.description} ?: 'No description'"></p>
+                        </div>
+                        <div class="gh-snippet-footer">
+                            <small style="color: var(--gh-text-secondary);" 
+                                   th:text="${#temporals.format(snippet.createdAt, 'MMM dd, yyyy')}"></small>
+                            <a th:href="@{/snippets/edit/{id}(id=${snippet.id})}" class="gh-btn-outline" style="padding: 4px 8px; font-size: 12px;">
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>

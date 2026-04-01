@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Snippet - CodeSaver</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/github-dark.css}" rel="stylesheet">
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+	</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark glass-card">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/dashboard}">
+                <i class="fas fa-code me-2"></i>CodeSaver
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+                <a class="nav-link" th:href="@{/snippets}">My Snippets</a>
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="glass-card p-4">
+                    <h2 class="text-white mb-4"><i class="fas fa-edit me-2"></i>Edit Code Snippet</h2>
+                    
+                    <form th:action="@{/snippets/update/{id}(id=${snippet.id})}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label text-white">Title</label>
+                            <input type="text" class="form-control" name="title" th:value="${snippet.title}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-white">Description</label>
+                            <textarea class="form-control" name="description" rows="3" th:text="${snippet.description}"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-white">Programming Language</label>
+                            <select class="form-control" name="language" required>
+                                <option th:selected="${snippet.language == 'Java'}" value="Java">Java</option>
+                                <option th:selected="${snippet.language == 'Python'}" value="Python">Python</option>
+                                <option th:selected="${snippet.language == 'JavaScript'}" value="JavaScript">JavaScript</option>
+                                <option th:selected="${snippet.language == 'HTML'}" value="HTML">HTML</option>
+                                <option th:selected="${snippet.language == 'CSS'}" value="CSS">CSS</option>
+                                <option th:selected="${snippet.language == 'SQL'}" value="SQL">SQL</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-white">Code</label>
+                            <textarea class="form-control code-editor" name="code" rows="10" required th:text="${snippet.code}"></textarea>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i>Update Snippet
+                            </button>
+                            <a th:href="@{/snippets}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- AI Chatbot -->
+	<div th:replace="fragments/chatbot :: chatbot-js"></div>
+</body>
+</html>
