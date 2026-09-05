@@ -224,7 +224,8 @@ Mobile
 
 ## Home / Landing Interface
 
-<img width="1894" height="1096" alt="Code Snippet Repository Application" src="https://github.com/user-attachments/assets/150e4384-434e-4f90-aa12-21c6aac88e93" />
+
+<img width="1915" height="1093" alt="Snippet Management Interface" src="https://github.com/user-attachments/assets/242b46d8-d750-4995-adcf-7d7fc609f428" />
 
 ---
 
@@ -236,7 +237,7 @@ Mobile
 
 ## Snippet Management
 
-<img width="1915" height="1093" alt="Snippet Management Interface" src="https://github.com/user-attachments/assets/242b46d8-d750-4995-adcf-7d7fc609f428" />
+<img width="1894" height="1096" alt="Code Snippet Repository Application" src="https://github.com/user-attachments/assets/150e4384-434e-4f90-aa12-21c6aac88e93" />
 
 ---
 
